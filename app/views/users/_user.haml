@@ -1,0 +1,19 @@
+%tr
+  %td
+    = link_to user.email, user
+  %td
+    - if user.has_started_quizz?
+      = user.started_at
+  %td
+    - if user.succeeded
+      %span.label.label-success
+        OK
+    - elsif user.has_finished_quizz?
+      %span.label.label-danger
+        FAIL
+    - elsif user.has_started_quizz?
+      %span.label.label-primary
+        ongoing
+    -else
+      %span.label.label-default
+        not started

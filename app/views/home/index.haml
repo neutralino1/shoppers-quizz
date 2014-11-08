@@ -1,0 +1,34 @@
+.align-center
+  - if @current_user
+    - if @current_user.has_finished_quizz?
+      .alert.alert-info
+        Thank you for completing our quizz, we will be in touch.
+    - elsif @current_user.has_started_quizz?
+      - if @current_user.over_time?
+        .alert.alert-danger
+          You are over time, sorry.
+      - else
+        = link_to 'Continue quizz', next_questions_path, class: 'btn btn-primary btn-lg'
+    - else
+      .row
+        .well.col-md-4.col-md-offset-4
+          %h4
+            Hi
+            = @current_user.email
+          %p
+            Welcome to Instacart's shoppers quizz. You will be presented with
+            = Question.count
+            questions. For each question, select the picture that matches the product description. You have 2 minutes to complete the test. Good luck!
+
+      = link_to 'Start quizz', next_questions_path, class: 'btn btn-primary btn-lg'
+    #logout
+      = link_to 'Log out', logout_path, method: :delete, class: 'btn btn-default'
+  - else
+    .center
+      #login.well.col-md-4.col-md-offset-4
+        %h2 Please login
+        = form_tag login_path, method: :post do |f|
+          .form-group
+            = text_field_tag :email, nil, placeholder: 'Email', class: 'form-control input-lg'
+          .form-group.align-right
+            = submit_tag 'Login', class: 'btn btn-primary input-lg'

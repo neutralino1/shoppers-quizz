@@ -1,0 +1,21 @@
+%h2= @user.email
+.lead
+  - if @user.has_finished_quizz?
+    Time to complete:
+    = @user.time_to_complete
+    seconds
+
+%table.table.table-striped
+  - @user.question_users.each do |response|
+    %tr
+      %td
+        = response.question.question
+      %td
+        = image_tag response.answer.url
+      %td
+        - if response.answer.correct
+          %span.label.label-success
+            OK
+        - else
+          %span.label.label-danger
+            FAIL

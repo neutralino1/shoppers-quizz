@@ -1,0 +1,4 @@
+.col-md-3.col-sm-6.align-center.answer
+  = form.label "answer_id_#{answer.id}" do
+    = image_tag answer.url
+  = form.radio_button :answer_id, answer.id

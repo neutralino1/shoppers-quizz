@@ -1,0 +1,20 @@
+%h2.align-center= @question.question
+
+- if flash[:error]
+  .alert.alert-danger
+    = flash[:error]
+
+%section
+  = form_for [@question, @question_user] do |f|
+    = f.hidden_field :question_id, value: @question.id
+    .row#answers
+      = render @question.answers, form: f
+    .clearfix
+    .text-center#answer
+      = f.submit 'Answer', class: 'btn btn-success btn-lg'
+
+#timer.lead{data: {seconds: @current_user.time_left}}
+  %span#seconds= @current_user.time_left
+  seconds left
+#logout
+  = link_to 'Skip', next_questions_path, class: 'btn btn-primary'
